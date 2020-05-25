@@ -1,0 +1,623 @@
+/* Dependencies */
+
+  @import './variables';
+  @import url('https://fonts.googleapis.com/css?family=Heebo:300,400,500');
+  @import '@fortawesome/fontawesome-free/scss/solid';
+  @import 'bootstrap/scss/bootstrap';
+  @import "animate.css/animate";
+  @import 'toastr/toastr';
+
+/* End Dependencies */
+
+
+/* Global */
+
+  html,
+  body,
+  div#root {
+    height: 100%;
+  }
+
+  html,
+  body {
+    transition: opacity .25s ease-in-out;
+  }
+
+  body.dragging {
+    cursor: move;
+  }
+
+  body.modal-open {
+    pointer-events: none;
+  }
+
+  body.modal-open .fade.modal-backdrop.show {
+    pointer-events: all;
+  }
+
+  body.fading {
+    opacity: .7;
+  }
+
+  body.loading .btn[data-column] {
+    color: #b2b1b3 !important;
+  }
+
+  body.loading .card {
+    border-color: #b2b1b3 !important;
+  }
+
+  body.loading .card-header {
+    border-color: #b2b1b3 !important;
+    background-color: #b2b1b3 !important;
+  }
+
+  body.loading .btn[data-column] {
+    color: #b2b1b3 !important;
+  }
+
+  body.loading::before {
+    display: block;
+    content: '\f1ce';
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    color: #6c757d;
+    font-family: 'Font Awesome 5 Free';
+    font-size: 40px;
+    font-weight: 900;
+    animation: fa-spin 1.5s infinite linear;
+    z-index: 3;
+  }
+
+  @media (max-width: map-get($grid-breakpoints, lg)) {
+    body.loading::before {
+      font-size: 50px;
+    }
+  }
+
+  body.loading::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 4;
+  }
+
+  div#wrapper {
+    position: relative;
+    overflow: hidden;
+    min-height: calc(100% - 294px);
+  }
+
+  @media (max-width: map-get($grid-breakpoints, xl)) {
+    div#wrapper {
+      min-height: calc(100% - 434px);
+    }
+  }
+
+  @media (max-width: map-get($grid-breakpoints, lg)) {
+    div#wrapper {
+      min-height: 0;
+    }
+  }
+
+/* End Global */
+
+/* Navigation */
+
+  header {
+    position: relative;
+    padding-bottom: 35px;
+  }
+
+  header > div.container > nav {
+    padding: 0;
+  }
+
+  header > div.container > nav > div#navbar > ul {
+    margin-bottom: 0;
+  }
+
+  header > div.container > nav > div#navbar > ul > li {
+    list-style-type: none;
+    text-transform: uppercase;
+  }
+
+  header > div.container > nav > div#navbar > ul > li:not(:last-child) {
+    margin-right: 0;
+  }
+
+  header > div.container > nav > div#navbar > ul > li > a {
+    display: block;
+    font-weight: 400;
+    padding: 7px 10px;
+    color: $gray-400;
+  }
+
+  @media (min-width: 992px) {
+    header > div.container > nav > div#navbar > ul > li.icon > a {
+      margin-top: -2px;
+      padding-bottom: 10px;
+      font-size: 1.5rem;
+      line-height: 0;
+    }
+  }
+
+  header > div.container > nav > div#navbar > ul > li > a:hover,
+  header > div.container > nav > div#navbar > ul > li > a:focus {
+    color: $gray-500;
+    text-decoration: none;
+  }
+
+  header > div.container > nav > div#navbar > ul > li .dropdown-menu {
+    text-transform: none;
+  }
+
+  nav.justify-content-center {
+    font-size: 85%;
+    border-bottom: 1px solid #f0f1f3;
+  }
+
+  nav.justify-content-center > li.nav-item > a {
+    padding: 8px 10px;
+  }
+
+/* End Navigation */
+
+
+/* Footer */
+
+  footer {
+    height: 294px;
+  }
+
+  @media (max-width: map-get($grid-breakpoints, xl)) {
+    footer {
+      height: 434px;
+    }
+  }
+
+  @media (max-width: map-get($grid-breakpoints, lg)) {
+    footer {
+      height: auto;
+    }
+  }
+
+  footer p {
+    color: $gray-400;
+    line-height: 170%;
+    font-size: 18px;
+    font-weight: 300;
+  }
+
+  @media (max-width: map-get($grid-breakpoints, lg)) {
+    footer p {
+      font-size: 15px;
+    }
+  }
+
+  footer ul {
+    padding-left: 2px;
+  }
+
+  footer li {
+    list-style-type: none;
+  }
+
+  footer li a {
+    display: block;
+    color: $gray-400;
+    font-weight: 400;
+    padding: 5px 0;
+  }
+
+  footer li:first-child a {
+    padding-top: 0;
+  }
+
+  footer li:last-child a {
+    padding-bottom: 0;
+  }
+
+  footer li a:hover {
+    color: $gray-500;
+    text-decoration: none;
+  }
+
+  footer .links .col {
+    width: 250px;
+  }
+
+  footer .copyright-line {
+    font-size: 16px;
+    color: #999;
+  }
+
+  footer .copyright-line a {
+    color: #999;
+  }
+
+  footer .copyright-line a:hover {
+    color: $navbar-dark-hover-color;
+    text-decoration: none;
+  }
+
+/* End Footer */
+
+
+/* Typography */
+
+  .badge {
+    font-weight: 500;
+    padding-top: $badge-padding-y + 0.10;
+  }
+
+  .badge-warning {
+    color: #ffffff;
+  }
+
+  .dropdown-item {
+    padding-top: $dropdown-item-padding-y + 0.085;
+  }
+
+  .font-weight-medium {
+    font-weight: 500;
+  }
+
+  code {
+    font-size: 100%;
+  }
+
+  a:not([href]) {
+    cursor: pointer;
+  }
+
+  a[tabindex] {
+    outline: 0;
+  }
+
+  a:hover, .btn-link:hover {
+    text-decoration: none;
+  }
+
+  a:not(.nav-link).text-secondary:active,
+  a:not(.nav-link).text-secondary:focus,
+  a:not(.nav-link).text-dark:active,
+  a:not(.nav-link).text-dark:focus,
+  a:not(.nav-link).text-muted:active,
+  a:not(.nav-link).text-muted:focus {
+    color: $primary !important;
+  }
+
+  a:not(.nav-link).badge.text-secondary:active,
+  a:not(.nav-link).badge.text-secondary:focus,
+  a:not(.nav-link).badge.text-dark:active,
+  a:not(.nav-link).badge.text-dark:focus,
+  a:not(.nav-link).badge.text-muted:active,
+  a:not(.nav-link).badge.text-muted:focus {
+    border-color: $primary !important;
+  }
+
+  img.emoji {
+    height: 1em;
+    width: 1em;
+    margin: 0;
+    vertical-align: -0.1em;
+  }
+
+  @media (max-width: map-get($grid-breakpoints, xl)) {
+    h1 {
+      font-size: $font-size-base * 2.25;
+    }
+
+    h2 {
+      font-size: $font-size-base * 1.75;
+    }
+
+    h3 {
+      font-size: $font-size-base * 1.5;
+    }
+
+    h4 {
+      font-size: $font-size-base * 1.25;
+    }
+
+    h5 {
+      font-size: $font-size-base * 1.2;
+    }
+  }
+
+  @media (max-width: map-get($grid-breakpoints, lg)) {
+    h1 {
+      font-size: $font-size-base * 2.0;
+    }
+
+    h2 {
+      font-size: $font-size-base * 1.5;
+    }
+
+    h3 {
+      font-size: $font-size-base * 1.4;
+    }
+
+    h4 {
+      font-size: $font-size-base * 1.2;
+    }
+
+    h5 {
+      font-size: $font-size-base * 1.1;
+    }
+
+    body, p, .form-control, .btn {
+      font-size: $font-size-base * 0.9;
+    }
+  }
+
+/* End Typography */
+
+
+/* Forms */
+
+  .custom-control-input:disabled + .custom-control-label::before {
+    border-width: 0;
+  }
+
+/* End Forms */
+
+
+/* Utilities */
+
+  .no-highlighting {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .pointer-events {
+    pointer-events: all !important;
+  }
+
+  .no-pointer-events {
+    pointer-events: none !important;
+  }
+
+  .animated.fastest {
+    -webkit-animation-duration: 300ms;
+    animation-duration: 300ms;
+  }
+
+  .info {
+    padding-bottom: 0;
+    border-bottom: 1px dashed #aaa;
+  }
+
+  .info:hover {
+    color: #777;
+    border-bottom-color: #777;
+    cursor: pointer;
+  }
+
+  .table-fixed {
+    table-layout: fixed;
+  }
+
+    /* Modals */
+
+      .modal-body {
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+      }
+
+    /* End Modals */
+
+
+    /* Toast Notifications */
+
+      #toast-container > div {
+        opacity: 0.95;
+        border: 0;
+      }
+
+      #toast-container > div,
+      #toast-container > div:hover {
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none;
+      }
+
+      #toast-container > div.toast.toast-success {
+        background-color: $primary;
+      }
+
+    /* End Toast Notifications */
+
+
+    /* Sweet Alerts */
+
+      .swal-icon {
+        margin-bottom: 10px;
+      }
+
+      .swal-title {
+        margin-bottom: 28px;
+        font-size: 2.5rem;
+        color: #212529;
+      }
+
+      .swal-text {
+        display: block;
+        text-align: center;
+        max-width: 100%;
+        font-size: 18px;
+        font-weight: 500;
+      }
+
+      .swal-footer {
+        text-align: center;
+      }
+
+      .swal-button {
+        color: #fff;
+        background-color: #343a40;
+        border-color: #343a40;
+      }
+
+      .swal-button:hover,
+      .swal-button:active {
+        background-color: #303030 !important;
+      }
+
+      .swal-button:focus {
+        box-shadow: 0 0 0 1px #fff, 0 0 0 3px #343a40;
+      }
+
+    /* End Sweet Alerts */
+
+
+    /* Context Menus */
+
+      .react-contextmenu {
+        background-color: #fff;
+        background-clip: padding-box;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 0.25rem;
+        color: #373a3c;
+        font-size: 15px;
+        margin: 2px 0 0;
+        min-width: 120px;
+        outline: none;
+        opacity: 0;
+        padding: 5px 0;
+        pointer-events: none;
+        text-align: left;
+        transition: opacity 150ms ease;
+      }
+
+      .react-contextmenu.react-contextmenu--visible {
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 9999;
+      }
+
+      .react-contextmenu-item {
+        background: 0 0;
+        border: 0;
+        color: #373a3c;
+        cursor: pointer;
+        font-weight: 400;
+        line-height: 1.5;
+        padding: 5px 20px 3px 20px;
+        text-align: inherit;
+        white-space: nowrap;
+        outline: 0;
+      }
+
+      .react-contextmenu-item.react-contextmenu-item--active,
+      .react-contextmenu-item.react-contextmenu-item--selected {
+        background-color: #e9ecef;
+        border-color: #e9ecef;
+        text-decoration: none;
+      }
+
+      .react-contextmenu-item.react-contextmenu-item--active:active,
+      .react-contextmenu-item.react-contextmenu-item--selected:active {
+        color: #fff;
+        background-color: #49545e;
+        border-color: #49545e;
+        text-decoration: none;
+      }
+
+      .react-contextmenu-item.react-contextmenu-item--disabled,
+      .react-contextmenu-item.react-contextmenu-item--disabled:hover {
+        background-color: transparent;
+        border-color: rgba(0, 0, 0, 0.15);
+        color: #878a8c;
+      }
+
+      .react-contextmenu-item.react-contextmenu-submenu > .react-contextmenu-item:after {
+        content: '▶';
+        display: inline-block;
+        position: absolute;
+        right: 7px;
+      }
+
+      .react-contextmenu-item--divider {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+        cursor: inherit;
+        margin-bottom: 3px;
+        padding: 2px 0;
+      }
+
+      .react-contextmenu-item--divider:hover {
+        background-color: transparent;
+        border-color: rgba(0, 0, 0, 0.15);
+      }
+
+      .react-contextmenu-item.react-contextmenu-submenu {
+        padding: 0;
+      }
+
+  /* End Context Menus */
+
+
+  /* Button Links */
+
+    .btn-link {
+      border-radius: 0;
+      transition: all 0s ease 0s;
+      font-size: inherit;
+
+      @each $name, $color in (
+        primary: $primary, secondary: $secondary, info: $info, success: $success, warning: $warning, danger: $danger, dark: $dark
+      ) {
+        &.text-#{$name} {
+          @include hover-focus {
+            color: darken($color, 10%) !important;
+            text-decoration: none;
+          }
+        }
+      }
+
+      @each $name, $color in (
+        secondary: $secondary, dark: $dark, muted: $gray-600
+      ) {
+        &.text-#{$name}:not(.dropdown-toggle):not([data-column]) {
+          &:active {
+            color: $primary !important;
+          }
+        }
+      }
+    }
+
+    .btn-link.dropdown-item {
+      &.active,
+      &:active {
+        color: $dropdown-link-active-color !important;
+      }
+    }
+
+  /* End Button Links */
+
+
+  /* Cursors */
+
+    .cursor-link {
+      cursor: pointer !important;
+    }
+
+    .cursor-default {
+      cursor: default !important;
+    }
+
+    .cursor-stop {
+      cursor: not-allowed !important;
+    }
+
+  /* End Cursors */
+
+/* End Utilities */
